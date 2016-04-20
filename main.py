@@ -13,6 +13,14 @@ def get_sales(client, articles):
 	pass
 
 
+def get_new_prices(client, sales):
+	pass
+
+
+def update_prices(client, new_prices):
+	pass
+
+
 def launch_wall_street():
 	print('Launching Wall Street...')
 	# Idea : every 30 seconds, launching request to get article sales
