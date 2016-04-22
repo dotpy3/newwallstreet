@@ -63,3 +63,4 @@ target/
 .ipynb_checkpoints
 
 config/local_settings.py
+priceDisplayer/

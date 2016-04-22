@@ -46,6 +46,8 @@ def get_articles(client, all_products=False):
 			continue
 		if product['categorie_id'] not in BEER_CATEGORIES:
 			continue
+        if 'Ecocup' in product['name'] or 'ecocup' in product['name']:
+            continue
 		if all_products:
 			print('Loading ' + product['name'] + ' (' + get_category_name(product['categorie_id']) + ')' + '...')
 		product_detail = client.call('GESARTICLE', 'getProduct', fun_id=2, obj_id=product['id'])['success']
