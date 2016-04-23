@@ -46,8 +46,8 @@ def get_articles(client, all_products=False):
 			continue
 		if product['categorie_id'] not in BEER_CATEGORIES:
 			continue
-        if 'Ecocup' in product['name'] or 'ecocup' in product['name']:
-            continue
+		if 'Ecocup' in product['name'] or 'ecocup' in product['name']:
+			continue
 		if all_products:
 			print('Loading ' + product['name'] + ' (' + get_category_name(product['categorie_id']) + ')' + '...')
 		product_detail = client.call('GESARTICLE', 'getProduct', fun_id=2, obj_id=product['id'])['success']
@@ -65,7 +65,7 @@ def get_articles(client, all_products=False):
 def get_sales(client, articles):
 	for article in articles:
 		article['sales'] = 0
-	ten_minutes_before = datetime.now() - timedelta(minutes=10, hours=2)
+	ten_minutes_before = datetime.now() - timedelta(minutes=4, hours=2)
 	export = client.call('TRESO', 'getExport', fun_id=2, start=ten_minutes_before.isoformat(),
 		end=datetime.now().isoformat(), group_applications=False,
 		group_locations=False, group_objects=True)
@@ -89,8 +89,11 @@ def calculate_price(product, ref_sales):
 	elif product['sales'] > ref_sales:
 		print(product['name'] + ' is selling very good : price goes up to ' + str((product['actual_price'] + 3) / 100) + '!')
 		return product['actual_price'] + 3
-	elif (product['actual_price'] - 2) >= int(product['original_price'] * 0.8):
-		print(product['name'] + ' is selling badly : price goes down to ' + str((product['actual_price'] - 3) / 100) + '...')
+	elif (product['actual_price'] - 2) >= int(product['original_price'] * 0.6):
+		price_diminution = 4
+		if product['id'] in [7122, 7121, 2886, 697, 7081, 7172, 7080]:
+			price_diminution = 8
+		print(product['name'] + ' is selling badly : price goes down to ' + str((product['actual_price'] - price_diminution) / 100) + '...')
 		return product['actual_price'] - 3
 	return product['actual_price']
 
@@ -107,7 +110,7 @@ def calculate_price(product, ref_sales):
 def get_new_prices(products):
 	sorted_liste = sorted(products, key=lambda beer: beer['sales'])
 
-	median_nb = int(len(products) * 0.3) - 1
+	median_nb = int(len(products) * 0.5) - 1
 	median = sorted_liste[median_nb]
 	print('Median value: ' + median['name'] + ', with '+ str(median['sales']))
 
