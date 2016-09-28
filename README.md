@@ -1,6 +1,6 @@
 # newwallstreet
-Fluctuation du flux de bières
-Made by Eric Gourlaouen and Romain Pellerin
+Fluctuation du flux de bières.
+Made by Eric Gourlaouen and Romain Pellerin, inspired by [jsmrcaga/WallStreetBiere](http://github.com/jsmrcaga/WallStreetBiere).
 
 ## Install
 * `pip install -r requirements.txt` (virtualenv recommended)
